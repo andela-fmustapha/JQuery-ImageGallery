@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="./reset.css" />    
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" />
+    <title>Image Gallery</title>    
+    <style>
+      body {
+        color: black;
+        text-align: center
+      }
+      header, footer {
+        display:block;
+      }
+      /* span {
+        color:black;
+        font: 2em verdana italic;
+      }
+      .container-fluid {
+        background-color: aliceblue;
+        width: 60em;
+        height: 50em;
+      }
+      #slider {
+        height: 30em;
+        margin: 120px 100px 10px 100px;
+        padding:10px;
+      }
+*/
+       .thumbnails {
+        background-color:#EBDEF0;
+       }
+       #header {
+        background-color: #5B2C6F;
+        color: white;
+        /* position: fixed; */
+        top:0;
+        left:0;
+        width:100%
+      }
+      
+      button {
+        height: 30px;
+        width: 100px;
+        background-color: #f54e4e;
+        color: white;
+        margin: 10px;
+        border-radius: 3px;
+      }
+
+      footer {
+        background-color: #5B2C6F;
+        color:white;
+        padding:1em;
+        margin-left:0px;
+        position:relative;
+        bottom:0;
+        left:0;
+        width:100%;
+        /* height:30px; */
+      } 
+      
+@media only screen and (max-width: 600px) {
+    /* img {
+      max-width:20em;
+      max-height:15em;
+    }
+    #slider {
+        margin-left:40px; 
+        padding-left:20px;
+        padding-bottom:0px;
+      }
+      button {
+        margin:10px;
+      } */
+}
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div id="header" class="col-sm">
+        <h1>My Image Gallery</h1>
+       </div>
+      </div><br />
+      <div class="row">
+        <div class="col-sm-3">
+        </div>
+        <div class="col-sm-6">
+          <img id="image" class="img-responsive" src="" alt=""><br />
+          <span id="subtitle">Image titles go here</span><br />
+          <button name="next">NEXT >></button><br />
+        </div>
+        <div class="col-sm-3">
+        </div>
+        <div></div>
+      </div>
+
+      <div class="thumbnails row">
+        <div class="col-sm-3">
+        </div>
+        <div class="thumbs col-sm-2">
+            <img src="./images/margaret-thumb.png" class="img-responsive">
+        </div>
+        <div class="thumbs col-sm-2">
+            <img src="./images/holger-thumb.png" class="img-responsive">
+        </div>
+        <div class="thumbs col-sm-2">
+            <img src="./images/ricardo-thumb.png" class="img-responsive">
+        </div>
+        <div class="col-sm-3">
+        </div>
+      </div><br />
+      <div class="thumbnails row">
+        <div class="col-sm-3">
+        </div>
+        <div class="thumbs col-sm-2">
+            <img src="./images/olivier-thumb.png" class="img-responsive">
+        </div>
+        <div class="thumbs col-sm-2">
+            <img src="./images/evelyn-thumb.png" class="img-responsive">
+        </div>
+        <div class="thumbs col-sm-2">
+            <img src="./images/chris-thumb.png" class="img-responsive">
+        </div>
+      </div><br />
+    </div>
+    <footer>
+      Copyright &copy; FAM IT & 22 Words 2018
+    </footer>
+    <!--Javascript code to flip through images -->
+    <script
+    src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    
+    <script>
+      let index= 0;
+      let pics = [
+        {
+          image: './images/margaret.png',
+          title: 'Photo by Margaret on Unsplash'
+        },
+        {
+          image: './images/holger.png',
+          title: 'Photo by Holger Link on Unsplash'
+        },
+        {
+          image:'./images/ricardo.png',
+          title: 'Photo by Ricardo Gomez Angel on Unsplash'
+        },
+        {
+          image:'./images/olivier.png',
+          title: 'Photo by Olivier Collet on Unsplash'
+        },
+        {
+          image: './images/evelyn.png',
+          title: 'Photo by Evelyn Paris on Unsplash'
+        },
+        {
+          image: './images/chris.png',
+          title: 'Photo by Chris Barbalis on Unsplash'
+        },
+      ];
+     
+    // function to randomize the array of image objects
+      function randomize(pics) {
+        let pics2 = [];
+        for(let i in pics) {
+          let randomIndex= Math.floor(Math.random() * pics.length);
+          while(pics2.includes(pics[randomIndex])){
+            randomIndex = Math.floor(Math.random() * pics.length);
+          }
+          pics2[i] = pics[randomIndex];
+        }
+        return pics = pics2;
+        }
+
+    // This function runs when the window loads
+      window.onload = $(function() {
+        pics = randomize(pics);
+        $("#subtitle").html(pics[index].title);
+        $("#image").attr('src', pics[index].image);
+        $("#image").attr('alt', pics[index].title);
+      });    
+
+    //Jquery function to display appropriate pictures and text in the right DOM elements
+        $("button").click(function () {
+         index++;
+          if (index < pics.length) {
+            $("#image").fadeIn('fast', function(){
+              $("#subtitle").html(pics[index].title)
+              $("#image").attr('src', pics[index].image);
+              $("#image").attr('alt', pics[index].title);
+            });
+          } else {
+            index=0;
+            $("#image").fadeIn('fast', function(){
+              $("#subtitle").html(pics[index].title)
+              $("#image").attr('src', pics[index].image);
+              $("#image").attr('alt', pics[index].title);
+            });
+            pics = randomize(pics);            
+          } 
+      });
+  
+    </script>
+  </body>
+</html>
