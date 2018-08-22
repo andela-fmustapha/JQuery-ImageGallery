@@ -88,14 +88,14 @@
       <div class="row">
         <div class="col-sm-3">
         </div>
-        <div class="col-sm-6">
+        <div class="text-center">
           <img id="image" class="img-responsive" src="" alt=""><br />
-          <span id="subtitle">Image titles go here</span><br />
+          <p id="subtitle">Image titles go here</p><br />
           <button name="next">NEXT >></button><br />
         </div>
-        <div class="col-sm-3">
+        <!-- <div class="col-sm-3">
         </div>
-        <div></div>
+        <div></div> -->
       </div>
 
       <div class="thumbnails row">
@@ -128,7 +128,7 @@
       </div><br />
     </div>
     <footer>
-      Copyright &copy; FAM IT & 22 Words 2018
+      Copyright &copy; FAM
     </footer>
     <!--Javascript code to flip through images -->
     <script
@@ -169,15 +169,13 @@
     // function to randomize the array of image objects
       function randomize(pics) {
         let pics2 = [];
-        for(let i in pics) {
+        while(pics.length !== 0) {
           let randomIndex= Math.floor(Math.random() * pics.length);
-          while(pics2.includes(pics[randomIndex])){
-            randomIndex = Math.floor(Math.random() * pics.length);
-          }
-          pics2[i] = pics[randomIndex];
+          pics2.push(pics[randomIndex]);
+          pics.splice(randomIndex, 1);
         }
         return pics = pics2;
-        }
+      }
 
     // This function runs when the window loads
       window.onload = $(function() {
